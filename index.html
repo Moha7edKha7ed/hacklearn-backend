@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>HackLearn</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      direction: rtl;
+      text-align: center;
+    }
+
+    .course {
+      border: 1px solid #ccc;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>الكورسات</h1>
+
+  <div id="courses"></div>
+
+  <script>
+    fetch("http://localhost:5000/api/courses")
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById("courses");
+
+        data.forEach(course => {
+          const div = document.createElement("div");
+          div.className = "course";
+
+          div.innerHTML = `
+            <h2>${course.title}</h2>
+            <p>${course.description}</p>
+          `;
+
+          container.appendChild(div);
+        });
+      })
+      .catch(error => console.log(error));
+  </script>
+
+</body>
+</html>
